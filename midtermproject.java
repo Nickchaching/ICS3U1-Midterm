@@ -4,18 +4,38 @@ public class midtermproject{
 	public static void main(String[]args){
 		Console con = new Console("Escape Room", 1280, 720);
 		
-		//Scene Configuration (Prevents 10 Sub-if/while/for loops for nested scenes)
-		int intscene = 0; //Corresponds with scene count, "-1" to end story
+		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
+		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
+		
+		//Main Function Variables
+		String struser = ""; 		//Scene 0
+		int intcount;
+		char chrstart; 				//Scene 1
+		//N/A						//Scene 2
+		int intmouseclicked;		//Scene 3
+		double dblpuzzleinput;		//Scene 4
+		double dblpuzzle1 = 0; 
+		double dblpuzzle2 = 0;
+		double dblpuzzle3 = 0;
+		double dblpuzzle4 = 0;
+		double dblpuzzle5 = 0;
+		int intrandom;				//Scene 5
+		int intrandominput = 0;
+		int inttries = 0;
+		//N/A						//Scene 6
+		String strpalword;			//Scene 7
+		String strpalwordback = "";
+		String strpalletter;
+		int intstrpalwordlength;
+		int intpalcount;
+		
 		
 		//Main Scenes Loop
 		while(intgamedone < 1){
 			
 			//Initializing Adventure (Not a Scene - Scene 0)
-			while(intscene == 0){
-				String struser;
-				int intcount;
-				
+			while(dblscene == 0){
 				con.println("What is your name?");
 				struser = con.readLine();
 				for(intcount = 1; intcount <= 5; intcount++){
@@ -33,58 +53,65 @@ public class midtermproject{
 					con.sleep(250);
 					con.clear();
 				}
-				intscene = 1;
+				dblscene = 1;
 			}
 			
 			//Scene 1: Welcome Screen
-			while(intscene == 1){
+			while(dblscene == 1){
 				scene1(con);
 				con.println("TEMP - Scene 1");
-				con.println("Press s to start");
-				char chrstart;
+				//Scene Text
+				con.println("Welcome "+struser+"! You decide to go to an escape room with your friends");
+				con.println("Press 's' to start and any other key to quit and head home.");
+				//Scene Input
 				chrstart = con.getChar();
+				//Condition - Goes Home 
 				if(chrstart != 's'){
-					intscene = 2;
+					dblscene = 2;
 				}
+				//Condition - Starts the Escape Room
 				else if(chrstart == 's'){
-					intscene = 3;
+					dblscene = 3;
 				}
 			}
 			
 			//Scene 2: END OF GAME - Went home
-			while(intscene == 2){
+			while(dblscene == 2){
 				scene2(con);
-				con.println("TEMP - Scene 2 GAME OVER");
-				intscene = -1;
+				con.println("TEMP - Scene 2");
+				con.println("You decided to go home and not play, game over");
+				
+				//End Game 
+				dblscene = -1;
 				intgamedone = 1;
 			}
 			
 			//Scene 3: Escape Room Start Screen
-			while(intscene == 3){
+			while(dblscene == 3){
 				scene3(con);
 				con.println("TEMP - Scene 3");
-				con.println("Click to advance to next");
-				int intmouseclicked = 0;
+				//Scene Text
+				con.println("You have decided to play the escape room, you have 45 minutes to successfully escape.");
+				con.println("You will be challenged with puzzles, complete them correctly to go down the right path and win the game!");
+				con.println("Click anywhere to start your first challenge!");
+				intmouseclicked = 0;
+				//Condition - Must Complete to Advance
 				while(intmouseclicked == 0){
 					intmouseclicked = con.currentMouseButton();
 				}
-				//COMPLETE - Advancing to next scene
-				intscene = 4;
+				dblscene = 4;
 			}
 			
 			//Scene 4: Puzzle Organizing Challenge
-			while(intscene == 4){
+			while(dblscene == 4){
 				scene4(con);
 				con.println("TEMP - Scene 4");
-				con.println("Input five double numbers");
-				double dblpuzzleinput;
-				double dblpuzzle1 = 0; //ZERO used as a placeholder to code will run
-				double dblpuzzle2 = 0;
-				double dblpuzzle3 = 0;
-				double dblpuzzle4 = 0;
-				double dblpuzzle5 = 0;
-				int intcount;
-				
+				//Scene Text
+				con.println("Organize the following puzzle pieces in the proper order to form a connected line.");
+				con.println("The puzzle pieces are each currently placed in a location");
+				con.println("To rearrange the puzzle pieces, input the new rearrangement in the following format");
+				con.println("Piece 1 to Location 3: Input '1.3'; Piece 2 to Loaction 1: Input '2.1'");
+				//Loop to Input and Sort Numbers into correct order
 				for(intcount = 1; intcount <= 5; intcount++){
 					dblpuzzleinput = con.readDouble();
 					con.println("Piece #"+intcount+" LOCKED");
@@ -154,93 +181,103 @@ public class midtermproject{
 						}
 					}
 				}
+				//Condition (CR) - Advances to Palindrome Challenge
 				if(dblpuzzle1 == 5.4 && dblpuzzle2 == 4.2 && dblpuzzle3 == 3.3 && dblpuzzle4 == 2.5 && dblpuzzle5 == 1.1){
-					con.println("Correct - Scene 7");
-					intscene = 7;
+					dblscene = 7;
 				}
+				//Condition (IR) - Advances to Guessing a Random Number
 				else{
-					con.println("Incorrect - Scene 5");
-					intscene = 5;
+					dblscene = 5;
 				}
 			}
 			
 			//Scene 5: Random Number Guessing Challenge
-			while(intscene == 5){
+			while(dblscene == 5){
 				scene5(con);
-				int intrandom;
-				int intrandominput = 1;
-				int inttries = 0;
 				con.println("TEMP - Scene 5");
+				//RNG
 				intrandom = (int)(Math.random()*100+1);
-				
+				//Scene Text
+				con.println("An integer between 1 - 100 is generated, the number of guesses you need");
+				con.println("will determine your fate! You will know if your answer is higher or lower");
+				con.println("Make a guess!");
+				//Looping until guessed correct answer
 				while(intrandominput != intrandom){
-					con.println("An integer is generated between 1-100");
-					con.println("Enter a number to guess!");
 					intrandominput = con.readInt();
 					if(intrandominput == intrandom){
-						con.println("Correctly guessed number");
+						con.println("You guessed the correct number!!!");
 					}
 					else if(intrandominput > intrandom){
-						con.println("Too High");
+						con.println("Too High! Guess again!");
 					}
 					else if(intrandominput < intrandom){
-						con.println("Too Low");
+						con.println("Too Low! Guess again!");
 					}
 					inttries = inttries + 1;
 				}
+				//Condition (CR) - Advances to Two Door Scene (b)
 				if(inttries <= 10){
 					con.println("Number guessed in "+inttries+" tries");
-					intscene = 8;
+					dblscene = 8.2;
 				}
+				//Condition (IR) - Game over (no time)
 				else if(inttries > 10){
 					con.println("Number guessed in "+inttries+" tries");
-					intscene = 6;
+					dblscene = 6;
 				}
 			}
 			
 			//Scene 6: END OF GAME - Random Number
-			while(intscene == 6){
+			while(dblscene == 6){
 				scene6(con);
-				con.println("TEMP - Scene 6 GAME OVER");
-				intscene = -1;
+				con.println("TEMP - Scene 6");
+				con.println("Unfortunately, you ran out of time and lost, try again!");
+				
+				//End Game
+				dblscene = -1;
 				intgamedone = 1;
 			}
 			
 			//Scene 7: Palindrome Challenge
-			while(intscene == 7){
+			while(dblscene == 7){
 				scene7(con);
-				String strpalword;
-				String strpalwordback = "";
-				String strpalletter;
-				int intstrpalwordlength;
-				int intpalcount;
-				int intcount;
-				
-				con.println("TEMP - Scene 7, Palindrome Challenge");
-				
-				for(intpalcount = 0; intpalcount < 5; intpalcount++){
+				con.println("TEMP - Scene 7");
+				//Scene Text
+				con.println("A palindrome is a word that can be spelled the same both backwards and forwards.");
+				con.println("Give me 5 palindromes!");
+				//Loop to repeat code to allow input for 5 palindromes
+				for(intpalcount = 1; intpalcount <= 5; intpalcount++){
+					strpalwordback = "";
 					con.println("Enter a word");
 					strpalword = con.readLine();
 					intstrpalwordlength = strpalword.length();
 					
+					//Loop to reverse inputted word
 					for(intcount = intstrpalwordlength; intcount >= 1; intcount--){
 						strpalletter = strpalword.substring(intcount - 1, intcount);
 						strpalwordback = strpalwordback + strpalletter;
 					}
 					
+					//Condition (CR) - Repeats Loop
 					if(strpalwordback.equals(strpalword)){
-						con.println("Correct, a pallindrome. "+intpalcount+"pallindrome inputted");
+						con.println("Correct, "+strpalword+" is a pallindrome. "+intpalcount+" pallindrome inputted.");
 					}
+					//Condition (IR) - Advances to Two Door Scene (b)
 					else{
-						con.println("Incorrect");
+						con.println("Incorrect, "+strpalword+" is not a pallindrome.");
 						intpalcount = 999;
-						intscene = 8;
+						dblscene = 8.2;
 					}
 				}
+				//Condition (CR) - Advances to Two Door Scene (a)
+				if(intpalcount != 1000){
+					dblscene = 8.1;
+				}	
 			}
-			
+
+
 			//TESTING Section
-			while(intscene == 999){	
+			while(dblscene == 999){	
 				int inttest;
 				inttest = con.currentMouseButton();
 				con.println(inttest);
