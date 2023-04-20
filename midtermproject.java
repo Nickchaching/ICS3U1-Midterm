@@ -39,14 +39,14 @@ public class midtermproject{
 			//Scene 1: Welcome Screen
 			while(intscene == 1){
 				scene1(con);
+				con.println("TEMP - Scene 1");
+				con.println("Press s to start");
 				char chrstart;
 				chrstart = con.getChar();
 				if(chrstart != 's'){
-					con.println("TEMP - Scene 2");
 					intscene = 2;
 				}
 				else if(chrstart == 's'){
-					con.println("TEMP - Scene 3");
 					intscene = 3;
 				}
 			}
@@ -54,6 +54,7 @@ public class midtermproject{
 			//Scene 2: END OF GAME - Went home
 			while(intscene == 2){
 				scene2(con);
+				con.println("TEMP - Scene 2 GAME OVER");
 				intscene = -1;
 				intgamedone = 1;
 			}
@@ -61,7 +62,8 @@ public class midtermproject{
 			//Scene 3: Escape Room Start Screen
 			while(intscene == 3){
 				scene3(con);
-				
+				con.println("TEMP - Scene 3");
+				con.println("Click to advance to next");
 				int intmouseclicked = 0;
 				while(intmouseclicked == 0){
 					intmouseclicked = con.currentMouseButton();
@@ -73,7 +75,8 @@ public class midtermproject{
 			//Scene 4: Puzzle Organizing Challenge
 			while(intscene == 4){
 				scene4(con);
-				
+				con.println("TEMP - Scene 4");
+				con.println("Input five double numbers");
 				double dblpuzzleinput;
 				double dblpuzzle1 = 0; //ZERO used as a placeholder to code will run
 				double dblpuzzle2 = 0;
@@ -158,6 +161,81 @@ public class midtermproject{
 				else{
 					con.println("Incorrect - Scene 5");
 					intscene = 5;
+				}
+			}
+			
+			//Scene 5: Random Number Guessing Challenge
+			while(intscene == 5){
+				scene5(con);
+				int intrandom;
+				int intrandominput = 1;
+				int inttries = 0;
+				con.println("TEMP - Scene 5");
+				intrandom = (int)(Math.random()*100+1);
+				
+				while(intrandominput != intrandom){
+					con.println("An integer is generated between 1-100");
+					con.println("Enter a number to guess!");
+					intrandominput = con.readInt();
+					if(intrandominput == intrandom){
+						con.println("Correctly guessed number");
+					}
+					else if(intrandominput > intrandom){
+						con.println("Too High");
+					}
+					else if(intrandominput < intrandom){
+						con.println("Too Low");
+					}
+					inttries = inttries + 1;
+				}
+				if(inttries <= 10){
+					con.println("Number guessed in "+inttries+" tries");
+					intscene = 8;
+				}
+				else if(inttries > 10){
+					con.println("Number guessed in "+inttries+" tries");
+					intscene = 6;
+				}
+			}
+			
+			//Scene 6: END OF GAME - Random Number
+			while(intscene == 6){
+				scene6(con);
+				con.println("TEMP - Scene 6 GAME OVER");
+				intscene = -1;
+				intgamedone = 1;
+			}
+			
+			//Scene 7: Palindrome Challenge
+			while(intscene == 7){
+				scene7(con);
+				String strpalword;
+				String strpalwordback = "";
+				String strpalletter;
+				int intstrpalwordlength;
+				int intpalcount;
+				int intcount;
+				
+				con.println("TEMP - Scene 7, Palindrome Challenge");
+				
+				for(intpalcount = 0; intpalcount < 5; intpalcount++){
+					con.println("Enter a word");
+					strpalword = con.readLine();
+					intstrpalwordlength = strpalword.length();
+					
+					for(intcount = intstrpalwordlength; intcount >= 1; intcount--){
+						strpalletter = strpalword.substring(intcount - 1, intcount);
+						strpalwordback = strpalwordback + strpalletter;
+					}
+					
+					if(strpalwordback.equals(strpalword)){
+						con.println("Correct, a pallindrome. "+intpalcount+"pallindrome inputted");
+					}
+					else{
+						con.println("Incorrect");
+						intpalcount = 999;
+						intscene = 8;
+					}
 				}
 			}
 			
