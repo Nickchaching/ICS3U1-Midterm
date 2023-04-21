@@ -5,7 +5,7 @@ public class midtermproject{
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 8.1; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -32,6 +32,16 @@ public class midtermproject{
 		int intposx;				//Scene 8
 		int intposy;
 		//intmouseclicked used
+		//N/A						//Scene 9
+		int introotvala = 0;		//Scene 10a
+		int introotvalb = 0;
+		int introotvalc = 0;
+		double dbldiscriminant;
+		int introots = 0;
+		double dblroota;			//Scene 10b
+		double dblrootb;
+		double dblrootaans;
+		double dblrootbans;
 		
 		
 		//Main Scenes Loop
@@ -293,11 +303,11 @@ public class midtermproject{
 					//For now, assume full left side is the left door, and full right side is the right door
 					//Condition (CR) - Advances to Integer Number Quadratic
   					if(intposx < 720 && intmouseclicked > 0){
-						dblscene = 10.1
+						dblscene = 10.1;
 					}
 					//Condition (IR) - Advances to Double Number Quadratic
 					else if(intposx > 720 && intmouseclicked > 0){
-						dblscene = 11.1
+						dblscene = 11.1;
 					}
 				}
 			}
@@ -317,18 +327,86 @@ public class midtermproject{
 					//For now, assume full left side is the left door, and full right side is the right door
 					//Condition (CR) - Advances to Double Number Quadratic
   					if(intposx < 720 && intmouseclicked > 0){
-						dblscene = 11.1
+						dblscene = 11.1;
 					}
 					//Condition (IR) - Game Over (Wrong Door)
 					else if(intposx > 720 && intmouseclicked > 0){
-						dblscene = 9
+						dblscene = 9;
 					}
 				}
 			}
 
 			//Scene 9: END OF GAME - Wrong Door
 			while(dblscene == 9){
+				scene9(con);
+				con.println("TEMP - Scene 9");
+				con.println("Game over, you chose the wrong door and lost. Try again!");
 				
+				//End Game
+				dblscene = -1;
+				intgamedone = 1;
+			}
+			
+			//Scene 10(a): Integer Quadratic Challenge (Input)
+			while(dblscene == 10.1){
+				scene10(con);
+				con.println("TEMP - Scene 10a");
+				//Scene Text
+				con.println("Enter 3 Integer Numbers to proceed!");
+				//Scene Input
+				introotvala = con.readInt();
+				introotvalb = con.readInt();
+				introotvalc = con.readInt();
+				//Scene Calculation
+				dbldiscriminant = (Math.pow(introotvalb, 2) - 4*introotvala*introotvalc);
+				
+				//Condition (CRs) - Advances to Solving the Quadratic
+				if(dbldiscriminant > 0){
+					introots = 2;
+					dblscene = 10.2;
+				}
+				else if(dbldiscriminant == 0){
+					introots = 1;
+					dblscene = 10.2;
+				}
+				//Condition (IR) - Game Over (No Roots)
+				else if(dbldiscriminant < 0){
+					dblscene = 12.1;
+				}
+			}
+			
+			//Scene 10(b): Integer Quadratic Challenge (Response)
+			while(dblscene == 10.2){
+				scene10(con);
+				con.println("TEMP - Scene 10b");
+				//Scene Text
+				con.println("You entered 3 Integer numbers, they will now be your a, b, and c values in a quadratic equation.");
+				con.println("Now, solve for the roots of the equation to unlock the final door (round to 2 decimal places)");
+				//Condition to allow inputs based on number of roots
+				if(introots == 2){
+					dblroota = con.readDouble();
+					dblrootb = con.readDouble();
+					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
+					dblrootbans = ((-introotvalb - Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
+					//Condition (CR) - Advances to ___
+					if(dblroota == dblrootaans && dblrootb == dblrootbans){
+						
+					}
+					//Condition (IR) - Game Over, Wrong Roots
+					else if(dblroota != dblrootaans || dblrootb != dblrootbans){
+						
+					}
+				}
+				else if(introots == 1){
+					dblroota = con.readDouble();
+					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
+					if(dblroota == dblrootaans){
+						
+					}
+					else if(dblroota != dblrootaans){
+						
+					}
+				}
 			}
 			
 			//TESTING Section
