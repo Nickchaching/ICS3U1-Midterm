@@ -5,7 +5,7 @@ public class midtermproject{
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 8.1; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -29,6 +29,9 @@ public class midtermproject{
 		String strpalletter;
 		int intstrpalwordlength;
 		int intpalcount;
+		int intposx;				//Scene 8
+		int intposy;
+		//intmouseclicked used
 		
 		
 		//Main Scenes Loop
@@ -274,8 +277,60 @@ public class midtermproject{
 					dblscene = 8.1;
 				}	
 			}
+			
+			//Scene8(a): The Door Dilemma
+			while(dblscene == 8.1){
+				scene8(con);
+				con.println("TEMP - Scene 8a");
+				//Scene Text
+				con.println("You have two doors to choose from. One will be good, and one will be bad.");
+				con.println("Position your mouse over the door you want to choose and click. Choose Wisely!");
+				//Loop to repeat code until a door has been chosen
+				while(dblscene == 8.1){
+					intmouseclicked = con.currentMouseButton();
+					intposx = con.currentMouseX();
+					intposy = con.currentMouseY();
+					//For now, assume full left side is the left door, and full right side is the right door
+					//Condition (CR) - Advances to Integer Number Quadratic
+  					if(intposx < 720 && intmouseclicked > 0){
+						dblscene = 10.1
+					}
+					//Condition (IR) - Advances to Double Number Quadratic
+					else if(intposx > 720 && intmouseclicked > 0){
+						dblscene = 11.1
+					}
+				}
+			}
+			
+			//Scene8(b): The Door Dilemma
+			while(dblscene == 8.2){
+				scene8(con);
+				con.println("TEMP - Scene 8a");
+				//Scene Text
+				con.println("You have two doors to choose from. One will be good, and one will be bad.");
+				con.println("Position your mouse over the door you want to choose and click. Choose Wisely!");
+				//Loop to repeat code until a door has been chosen
+				while(dblscene == 8.1){
+					intmouseclicked = con.currentMouseButton();
+					intposx = con.currentMouseX();
+					intposy = con.currentMouseY();
+					//For now, assume full left side is the left door, and full right side is the right door
+					//Condition (CR) - Advances to Double Number Quadratic
+  					if(intposx < 720 && intmouseclicked > 0){
+						dblscene = 11.1
+					}
+					//Condition (IR) - Game Over (Wrong Door)
+					else if(intposx > 720 && intmouseclicked > 0){
+						dblscene = 9
+					}
+				}
+			}
 
-
+			//Scene 9: END OF GAME - Wrong Door
+			while(dblscene == 9){
+				
+			}
+			
 			//TESTING Section
 			while(dblscene == 999){	
 				int inttest;
