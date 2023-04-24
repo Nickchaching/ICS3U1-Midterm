@@ -1,3 +1,4 @@
+//Imports the ARC Library
 import arc.*;
 
 public class midtermproject{
@@ -5,7 +6,7 @@ public class midtermproject{
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 10.1; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -44,7 +45,17 @@ public class midtermproject{
 		double dblrootbans;
 		double dblrootaansrnd;
 		double dblrootbansrnd;
-		
+		double dblrootvala = 0;		//Scene 11a
+		double dblrootvalb = 0;
+		double dblrootvalc = 0;
+		//dbldiscriminant used
+		//introots used
+		//dblroota used				//Scene 11b
+		//dblrootb used
+		//dblrootaans used
+		//dblrootbans used
+		//dblrootaansrnd used
+		//dblrootbansrnd used
 		
 		//Main Scenes Loop
 		while(intgamedone < 1){
@@ -417,9 +428,104 @@ public class midtermproject{
 			}
 			
 			//Scene 11(a): Double Quadratic Challenge (Input)
-			
+			while(dblscene == 11.1){
+				scene11(con);
+				con.println("TEMP - Scene 11a");
+				//Scene Text
+				con.println("Enter 3 Double Numbers to proceed!");
+				//Scene Input
+				dblrootvala = con.readDouble();
+				dblrootvalb = con.readDouble();
+				dblrootvalc = con.readDouble();
+				//Scene Calculation
+				dbldiscriminant = (Math.pow(dblrootvalb, 2) - 4*dblrootvala*dblrootvalc);
+				
+				//Condition (CRs) - Advances to Solving the Quadratic
+				if(dbldiscriminant > 0){
+					introots = 2;
+					dblscene = 11.2;
+				}
+				else if(dbldiscriminant == 0){
+					introots = 1;
+					dblscene = 11.2;
+				}
+				//Condition (IR) - Game Over (No Roots)
+				else if(dbldiscriminant < 0){
+					dblscene = 12.2;
+				}
+			}
 			
 			//Scene 11(b): Double Quadratic Challenge (Response)
+			while(dblscene == 11.2){
+				scene11(con);
+				con.println("TEMP - Scene 11b");
+				//Scene Text
+				con.println("You entered 3 Double numbers, they will now be your a, b, and c values in a quadratic equation.");
+				con.println("Now, solve for the roots of the equation to unlock the final door (round to 2 decimal places)");
+				//Condition to allow inputs based on number of roots
+				if(introots == 2){
+					dblroota = con.readDouble();
+					dblrootb = con.readDouble();
+					dblrootaans = ((-dblrootvalb + Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
+					dblrootbans = ((-dblrootvalb - Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
+					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					dblrootbansrnd = Math.round(dblrootbans*100)/100;
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					if(dblroota == dblrootaans && dblrootb == dblrootbans){
+						dblscene = 14.2;
+					}
+					//Condition (IR) - Game Over, Wrong Roots
+					else if(dblroota != dblrootaans || dblrootb != dblrootbans){
+						dblscene = 13.2;
+					}
+				}
+				else if(introots == 1){
+					dblroota = con.readDouble();
+					dblrootaans = ((-dblrootvalb + Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
+					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					if(dblroota == dblrootaans){
+						dblscene = 14.2;
+					}
+					//Condition (IR) - Game Over, Wrong Roots
+					else if(dblroota != dblrootaans){
+						dblscene = 13.2;
+					}
+				}
+			}
+			
+			//Scene 12: END OF GAME - No Quadratic
+			while(dblscene == 12){
+				scene12(con);
+				con.println("TEMP - Scene 12");
+				con.println("Game over, you needed to solve for the root of those 3 numbers, unfortunately you cannot get the square root of a negative number. Try again!");
+				
+				//End Game
+				dblscene = -1;
+				intgamedone = 1;
+			}
+			
+			//Scene 13: END OF GAME - Wrong Values
+			while(dblscene == 13){
+				scene13(con);
+				con.println("TEMP - Scene 13");
+				con.println("Game over, you entered the wrong roots and lost. Try again!");
+				
+				//End Game
+				dblscene = - 1;
+				intgamedone = 1;
+			}
+			
+			//Scene 14: END OF GAME - Win!
+			while(dblscene == 14){
+				scene14(con);
+				con.println("TEMP - Scene 14");
+				con.println("CONGRATULATIONS!!! YOU HAVE SUCCESSFULLY ESCAPED!");
+				
+				//End Game
+				dblscene = -1;
+				intgamedone = 1;
+			}
 			
 			//TESTING Section
 			while(dblscene == 999){	
