@@ -1,12 +1,14 @@
-//Imports the ARC Library
+//Importing Libraries
 import arc.*;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 
 public class midtermproject{
 	public static void main(String[]args){
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 2; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -84,8 +86,8 @@ public class midtermproject{
 			
 			//Scene 1: Welcome Screen
 			while(dblscene == 1){
-				scene1(con);
-				con.println("TEMP - Scene 1");
+				con.clear();
+				scene1(con, dblscene);
 				//Scene Text
 				con.println("Welcome "+struser+"! You decide to go to an escape room with your friends");
 				con.println("Press 's' to start and any other key to quit and head home.");
@@ -99,10 +101,12 @@ public class midtermproject{
 				else if(chrstart == 's'){
 					dblscene = 3;
 				}
+				scene1(con, dblscene);
 			}
 			
 			//Scene 2: END OF GAME - Went home
 			while(dblscene == 2){
+				con.clear();
 				scene2(con);
 				con.println("TEMP - Scene 2");
 				con.println("You decided to go home and not play, game over");
@@ -114,6 +118,7 @@ public class midtermproject{
 			
 			//Scene 3: Escape Room Start Screen
 			while(dblscene == 3){
+				con.clear();
 				scene3(con);
 				con.println("TEMP - Scene 3");
 				//Scene Text
@@ -537,12 +542,67 @@ public class midtermproject{
 	}
 	
 	//Scene 1 Graphics
-	public static void scene1(Console con){
+	public static void scene1(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene1BG = con.loadImage("Scene1BG.png");
+		BufferedImage imgPerson1 = con.loadImage("Person1.png");
+		BufferedImage imgPerson2 = con.loadImage("Person2.png");
+		BufferedImage imgPerson3 = con.loadImage("Person3.png");
+		
+		//Scene Variables
+		int intpersonxadj = 0;
+		
+		//Main Scene Drawing (IN)
+		con.drawImage(imgScene1BG,0,0);
+		con.drawImage(imgPerson1, 500, 270);
+		con.drawImage(imgPerson2, 700, 300);
+		con.drawImage(imgPerson3, 900, 330);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 2){
+			for(intpersonxadj = 0; intpersonxadj < 700; intpersonxadj = intpersonxadj + 5){
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene1BG,0,0);
+				con.drawImage(imgPerson1, 500 + intpersonxadj, 270);
+				con.drawImage(imgPerson2, 700 + intpersonxadj, 300);
+				con.drawImage(imgPerson3, 900 + intpersonxadj, 330);
+				con.repaint();
+				con.sleep(17);
+			}
+		}
+		else if(dblscene == 3){
+			for(intpersonxadj = 0; intpersonxadj > -1280; intpersonxadj = intpersonxadj - 5){
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene1BG,0,0);
+				con.drawImage(imgPerson1, 500 + intpersonxadj, 270);
+				con.drawImage(imgPerson2, 700 + intpersonxadj, 300);
+				con.drawImage(imgPerson3, 900 + intpersonxadj, 330);
+				con.repaint();
+				con.sleep(17);
+			}
+		}
 		
 	}
+	
 	//Scene 2 Graphics
 	public static void scene2(Console con){
+		//Scene Images
+		BufferedImage imgScene2BG = con.loadImage("Scene2BG.png");
+		BufferedImage imgPerson1Flip = con.loadImage("Person1Flip.png");
+		BufferedImage imgPerson2Flip = con.loadImage("Person2Flip.png");
+		BufferedImage imgPerson3Flip = con.loadImage("Person3Flip.png");
 		
+		//Scene Variables
+		int intpersonxadj = 0;
+		
+		//Main Scene Drawing (IN)
+		con.drawImage(imgScene2BG,0,0);
+		con.drawImage(imgPerson3Flip, 0, 350);
+		con.drawImage(imgPerson2Flip, 200, 300);
+		con.drawImage(imgPerson1Flip, 400, 330);
 	}
 	//Scene 3 Graphics
 	public static void scene3(Console con){
