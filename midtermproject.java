@@ -5,7 +5,7 @@ public class midtermproject{
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 10.1; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -42,6 +42,8 @@ public class midtermproject{
 		double dblrootb;
 		double dblrootaans;
 		double dblrootbans;
+		double dblrootaansrnd;
+		double dblrootbansrnd;
 		
 		
 		//Main Scenes Loop
@@ -388,26 +390,36 @@ public class midtermproject{
 					dblrootb = con.readDouble();
 					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
 					dblrootbans = ((-introotvalb - Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
-					//Condition (CR) - Advances to ___
+					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					dblrootbansrnd = Math.round(dblrootbans*100)/100;
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
 					if(dblroota == dblrootaans && dblrootb == dblrootbans){
-						
+						dblscene = 14.1;
 					}
 					//Condition (IR) - Game Over, Wrong Roots
 					else if(dblroota != dblrootaans || dblrootb != dblrootbans){
-						
+						dblscene = 13.1;
 					}
 				}
 				else if(introots == 1){
 					dblroota = con.readDouble();
 					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
+					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
 					if(dblroota == dblrootaans){
-						
+						dblscene = 14.1;
 					}
+					//Condition (IR) - Game Over, Wrong Roots
 					else if(dblroota != dblrootaans){
-						
+						dblscene = 13.1;
 					}
 				}
 			}
+			
+			//Scene 11(a): Double Quadratic Challenge (Input)
+			
+			
+			//Scene 11(b): Double Quadratic Challenge (Response)
 			
 			//TESTING Section
 			while(dblscene == 999){	
