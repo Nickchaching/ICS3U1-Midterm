@@ -7,8 +7,8 @@ public class midtermproject{
 	public static void main(String[]args){
 		Console con = new Console("Escape Room", 1280, 720);
 		
-		//Scene Configuration Variables (Prevents 10 Sub-if/while/for loops for nested scenes)
-		double dblscene = 2; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		//Scene Configuration Variables (Prevents Sub-if/while/for loops for nested scenes and Enables accelerated testing)
+		double dblscene = 8.2; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -108,7 +108,7 @@ public class midtermproject{
 			while(dblscene == 2){
 				con.clear();
 				scene2(con);
-				con.println("TEMP - Scene 2");
+				//Scene Text
 				con.println("You decided to go home and not play, game over");
 				
 				//End Game 
@@ -120,7 +120,6 @@ public class midtermproject{
 			while(dblscene == 3){
 				con.clear();
 				scene3(con);
-				con.println("TEMP - Scene 3");
 				//Scene Text
 				con.println("You have decided to play the escape room, you have 45 minutes to successfully escape.");
 				con.println("You will be challenged with puzzles, complete them correctly to go down the right path and win the game!");
@@ -135,8 +134,8 @@ public class midtermproject{
 			
 			//Scene 4: Puzzle Organizing Challenge
 			while(dblscene == 4){
-				scene4(con);
-				con.println("TEMP - Scene 4");
+				con.clear();
+				scene4(con, dblscene);
 				//Scene Text
 				con.println("Organize the following puzzle pieces in the proper order to form a connected line.");
 				con.println("The puzzle pieces are each currently placed in a location");
@@ -220,12 +219,13 @@ public class midtermproject{
 				else{
 					dblscene = 5;
 				}
+				scene4(con, dblscene);
 			}
 			
 			//Scene 5: Random Number Guessing Challenge
 			while(dblscene == 5){
-				scene5(con);
-				con.println("TEMP - Scene 5");
+				con.clear();
+				scene5(con, dblscene);
 				//RNG
 				intrandom = (int)(Math.random()*100+1);
 				//Scene Text
@@ -253,15 +253,16 @@ public class midtermproject{
 				}
 				//Condition (IR) - Game over (no time)
 				else if(inttries > 10){
-					con.println("Number guessed in "+inttries+" tries");
+					con.println("Number guessed in "+inttries+" tries, that is too many tries!");
 					dblscene = 6;
 				}
+				scene5(con, dblscene);
 			}
 			
 			//Scene 6: END OF GAME - Random Number
 			while(dblscene == 6){
+				con.clear();
 				scene6(con);
-				con.println("TEMP - Scene 6");
 				con.println("Unfortunately, you ran out of time and lost, try again!");
 				
 				//End Game
@@ -271,8 +272,8 @@ public class midtermproject{
 			
 			//Scene 7: Palindrome Challenge
 			while(dblscene == 7){
-				scene7(con);
-				con.println("TEMP - Scene 7");
+				con.clear();
+				scene7(con,dblscene);
 				//Scene Text
 				con.println("A palindrome is a word that can be spelled the same both backwards and forwards.");
 				con.println("Give me 5 palindromes!");
@@ -301,15 +302,16 @@ public class midtermproject{
 					}
 				}
 				//Condition (CR) - Advances to Two Door Scene (a)
-				if(intpalcount != 1000){
+				if(intpalcount == 6){
 					dblscene = 8.1;
 				}	
+				scene7(con, dblscene);
 			}
 			
 			//Scene8(a): The Door Dilemma
 			while(dblscene == 8.1){
-				scene8(con);
-				con.println("TEMP - Scene 8a");
+				con.clear();
+				scene8a(con, dblscene);
 				//Scene Text
 				con.println("You have two doors to choose from. One will be good, and one will be bad.");
 				con.println("Position your mouse over the door you want to choose and click. Choose Wisely!");
@@ -328,17 +330,18 @@ public class midtermproject{
 						dblscene = 11.1;
 					}
 				}
+				scene8a(con, dblscene);
 			}
 			
 			//Scene8(b): The Door Dilemma
 			while(dblscene == 8.2){
-				scene8(con);
-				con.println("TEMP - Scene 8a");
+				con.clear();
+				scene8b(con, dblscene);
 				//Scene Text
 				con.println("You have two doors to choose from. One will be good, and one will be bad.");
 				con.println("Position your mouse over the door you want to choose and click. Choose Wisely!");
 				//Loop to repeat code until a door has been chosen
-				while(dblscene == 8.1){
+				while(dblscene == 8.2){
 					intmouseclicked = con.currentMouseButton();
 					intposx = con.currentMouseX();
 					intposy = con.currentMouseY();
@@ -352,6 +355,7 @@ public class midtermproject{
 						dblscene = 9;
 					}
 				}
+				scene8b(con, dblscene);
 			}
 
 			//Scene 9: END OF GAME - Wrong Door
@@ -541,7 +545,7 @@ public class midtermproject{
 		}
 	}
 	
-	//Scene 1 Graphics
+	//Scene 1 Graphics (TEXT & DISTINCT PICTURE + ANIMATED)
 	public static void scene1(Console con, double dblscene){
 		//Scene Images
 		BufferedImage imgScene1BG = con.loadImage("Scene1BG.png");
@@ -587,7 +591,7 @@ public class midtermproject{
 		
 	}
 	
-	//Scene 2 Graphics
+	//Scene 2 Graphics (TEXT & DISTINCT PICTURE + ANIMATED)
 	public static void scene2(Console con){
 		//Scene Images
 		BufferedImage imgScene2BG = con.loadImage("Scene2BG.png");
@@ -598,36 +602,329 @@ public class midtermproject{
 		//Scene Variables
 		int intpersonxadj = 0;
 		
-		//Main Scene Drawing (IN)
-		con.drawImage(imgScene2BG,0,0);
-		con.drawImage(imgPerson3Flip, 0, 350);
-		con.drawImage(imgPerson2Flip, 200, 300);
-		con.drawImage(imgPerson1Flip, 400, 330);
+		//Main Scene Drawing (IN AND STAY)
+		for(intpersonxadj = -600; intpersonxadj < 0; intpersonxadj = intpersonxadj + 5){
+			con.setDrawColor(Color.BLACK);
+			con.fillRect(0, 0, 1280, 720);
+			con.drawImage(imgScene2BG, 0,0);
+			con.drawImage(imgPerson3Flip, 0 + intpersonxadj, 350);
+			con.drawImage(imgPerson2Flip, 200 + intpersonxadj, 300);
+			con.drawImage(imgPerson1Flip, 400 + intpersonxadj, 330);
+			con.repaint();
+			con.sleep(17);
+		}
 	}
-	//Scene 3 Graphics
+	
+	//Scene 3 Graphics (TEXT & DISTINCT PICTURE)
 	public static void scene3(Console con){
+		//Scene Images
+		BufferedImage imgScene3BG = con.loadImage("Scene3-4BG.png");
+		
+		//Main Scene Drawing
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene3BG, 0, 0);
+		con.repaint();
 		
 	}
-	//Scene 4 Graphics
-	public static void scene4(Console con){
+	
+	//Scene 4 Graphics (TEXT & DISTINCT PICTURE + ANIMATED)
+	public static void scene4(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene4BG = con.loadImage("Scene3-4BG.png");
+		BufferedImage imgPuzzle1 = con.loadImage("Puzzle1.png");
+		BufferedImage imgPuzzle2 = con.loadImage("Puzzle2.png");
+		BufferedImage imgPuzzle3 = con.loadImage("Puzzle3.png");
+		BufferedImage imgPuzzle4 = con.loadImage("Puzzle4.png");
+		BufferedImage imgPuzzle5 = con.loadImage("Puzzle5.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
 		
-	}
-	//Scene 5 Graphics
-	public static void scene5(Console con){
+		//Scene Variables
+		int intcount;
+		int intimg2posx = 365;
+		int intimg2posy = 375;
+		int intimg4posx = 665;
+		int intimg5posx = 515;
+		int intimg5posy = 100;
+		int intcororwroposx = 1280;
 		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene4BG, 0, 0);
+		con.drawImage(imgPuzzle1, 215, 100);
+		con.drawImage(imgPuzzle5, 515, 100);
+		con.drawImage(imgPuzzle3, 815, 100);
+		con.drawImage(imgPuzzle2, 365, 375);
+		con.drawImage(imgPuzzle4, 665, 375);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 7){
+			for(intcount = 0; intcount < 100; intcount++){
+				if(intimg2posx != 515){
+					intimg2posx = intimg2posx + 5;
+				}
+				if(intimg2posy != 100){
+					intimg2posy = intimg2posy - 5;
+				}
+				if(intimg4posx != 365){
+					intimg4posx = intimg4posx - 5;
+				}
+				if(intimg5posx != 665){
+					intimg5posx = intimg5posx + 5;
+				}
+				if(intimg5posy != 375){
+					intimg5posy = intimg5posy + 5;
+				}
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene4BG, 0, 0);
+				con.drawImage(imgPuzzle1, 215, 100);
+				con.drawImage(imgPuzzle2, intimg2posx, intimg2posy);
+				con.drawImage(imgPuzzle3, 815, 100);
+				con.drawImage(imgPuzzle4, intimg4posx, 375);
+				con.drawImage(imgPuzzle5, intimg5posx, intimg5posy);
+				con.repaint();
+				con.sleep(17);
+			}
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene4BG, 0, 0);
+				con.drawImage(imgPuzzle1, 215, 100);
+				con.drawImage(imgPuzzle2, intimg2posx, intimg2posy);
+				con.drawImage(imgPuzzle3, 815, 100);
+				con.drawImage(imgPuzzle4, intimg4posx, 375);
+				con.drawImage(imgPuzzle5, intimg5posx, intimg5posy);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 5){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene4BG, 0, 0);
+				con.drawImage(imgPuzzle1, 215, 100);
+				con.drawImage(imgPuzzle5, 515, 100);
+				con.drawImage(imgPuzzle3, 815, 100);
+				con.drawImage(imgPuzzle2, 365, 375);
+				con.drawImage(imgPuzzle4, 665, 375);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
 	}
-	//Scene 6 Graphics
+	
+	//Scene 5 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION)
+	public static void scene5(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene5BG = con.loadImage("Scene5BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
+		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene5BG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 8.2){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene5BG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 6){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene5BG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+	}
+	
+	//Scene 6 Graphics (TEXT & DISTINCT PICTURE + ANIMATED)
 	public static void scene6(Console con){
+		//Scene Images
+		BufferedImage imgScene6BG = con.loadImage("Scene6BG.png");
 		
-	}
-	//Scene 7 Graphics
-	public static void scene7(Console con){
+		//Scene Variables
+		int intcount;
+		int intsceneadjx = 0;
+		int intscenevelox = 5;
 		
+		//Main Scene Drawing (IN AND STAY)
+		for(intcount = 0; intcount < 250; intcount++){
+			if(intsceneadjx == 0){
+				intscenevelox = -5;
+			}
+			else if(intsceneadjx == -50){
+				intscenevelox = 5;
+			}
+			intsceneadjx = intsceneadjx + intscenevelox;
+			con.setDrawColor(Color.BLACK);
+			con.fillRect(0, 0, 1280, 720);
+			con.drawImage(imgScene6BG, -25 + intsceneadjx, 0);
+			con.repaint();
+			con.sleep(17);
+		}
 	}
-	//Scene 8 Graphics
-	public static void scene8(Console con){
+	
+	//Scene 7 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION)
+	public static void scene7(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene7BG = con.loadImage("Scene7BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
 		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene7BG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 8.1){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene7BG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 8.2){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene7BG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
 	}
+	
+	//Scene 8 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION) [8b is duplicate of 8a, but allows the CORRECT AND WRONG indicators to work]
+	public static void scene8a(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene8BG = con.loadImage("Scene8BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
+		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene8BG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 10.1){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene8BG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 11.1){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene8BG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+	}
+	public static void scene8b(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene8BG = con.loadImage("Scene8BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
+		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene8BG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 11.1){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene8BG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 9){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene8BG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+	}
+	
 	//Scene 9 Graphics
 	public static void scene9(Console con){
 		
