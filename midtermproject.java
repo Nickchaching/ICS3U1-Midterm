@@ -1,3 +1,7 @@
+//ESCAPE ROOM
+//NICHOLAS CHING
+//VERSION 11
+
 //Importing Libraries
 import arc.*;
 import java.awt.image.BufferedImage;
@@ -8,7 +12,7 @@ public class midtermproject{
 		Console con = new Console("Escape Room", 1280, 720);
 		
 		//Scene Configuration Variables (Prevents Sub-if/while/for loops for nested scenes and Enables accelerated testing)
-		double dblscene = 8.2; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
+		double dblscene = 0; //Corresponds with scene count, "-1" to end story, ".1" to represent a path and ".2" to represent b path if possible
 		int intgamedone = 0; //0 = Not Completed, 1 = Completed, stops loop
 		
 		//Main Function Variables
@@ -140,7 +144,7 @@ public class midtermproject{
 				con.println("Organize the following puzzle pieces in the proper order to form a connected line.");
 				con.println("The puzzle pieces are each currently placed in a location");
 				con.println("To rearrange the puzzle pieces, input the new rearrangement in the following format");
-				con.println("Piece 1 to Location 3: Input '1.3'; Piece 2 to Loaction 1: Input '2.1'");
+				con.println("Piece 1 to Location 3: Input '1.3'; Piece 2 to Location 1: Input '2.1'");
 				//Loop to Input and Sort Numbers into correct order
 				for(intcount = 1; intcount <= 5; intcount++){
 					dblpuzzleinput = con.readDouble();
@@ -360,8 +364,8 @@ public class midtermproject{
 
 			//Scene 9: END OF GAME - Wrong Door
 			while(dblscene == 9){
+				con.clear();
 				scene9(con);
-				con.println("TEMP - Scene 9");
 				con.println("Game over, you chose the wrong door and lost. Try again!");
 				
 				//End Game
@@ -925,26 +929,55 @@ public class midtermproject{
 		}
 	}
 	
-	//Scene 9 Graphics
+	//Scene 9 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION)
 	public static void scene9(Console con){
+		//Scene Images
+		BufferedImage imgScene9BG = con.loadImage("Scene9BG.png");
+		BufferedImage imgWrongWay = con.loadImage("WrongWay.png");
 		
+		//Scene Variables
+		int intcount;
+		int intsceneadjx = 0;
+		int intscenevelox = 5;
+		
+		//Main Scene Drawing (IN AND STAY)
+		for(intcount = 0; intcount < 250; intcount++){
+			if(intsceneadjx == 25){
+				intscenevelox = -5;
+			}
+			else if(intsceneadjx == -25){
+				intscenevelox = 5;
+			}
+			intsceneadjx = intsceneadjx + intscenevelox;
+			con.setDrawColor(Color.BLACK);
+			con.fillRect(0, 0, 1280, 720);
+			con.drawImage(imgScene9BG, 0, 0);
+			con.drawImage(imgWrongWay, 265 + intsceneadjx, 110);
+			con.repaint();
+			con.sleep(17);
+		}
 	}
+	
 	//Scene 10 Graphics
 	public static void scene10(Console con){
 		
 	}
+	
 	//Scene 11 Graphics
 	public static void scene11(Console con){
 		
 	}
+	
 	//Scene 12 Graphics
 	public static void scene12(Console con){
 		
 	}
+	
 	//Scene 13 Graphics
 	public static void scene13(Console con){
 		
 	}
+	
 	//Scene 14 Graphics
 	public static void scene14(Console con){
 		
