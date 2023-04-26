@@ -146,9 +146,9 @@ public class midtermproject{
 				scene4(con, dblscene);
 				//Scene Text
 				con.println("Organize the following puzzle pieces in the proper order to form a connected line.");
-				con.println("The puzzle pieces are each currently placed in a location");
-				con.println("To rearrange the puzzle pieces, input the new rearrangement in the following format");
-				con.println("Piece 1 to Location 3: Input '1.3'; Piece 2 to Location 1: Input '2.1'");
+				con.println("The puzzle pieces are each currently placed in a location, assume pieces 4 and 5 are placed after piece 3.");
+				con.println("To rearrange the puzzle pieces, input the new rearrangement in the following format.");
+				con.println("EXAMPLE: Piece 1 to Location 3: Input '1.3'; Piece 2 to Location 1: Input '2.1'");
 				//Loop to Input and Sort Numbers into correct order
 				for(intcount = 1; intcount <= 5; intcount++){
 					dblpuzzleinput = con.readDouble();
