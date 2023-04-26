@@ -1,6 +1,6 @@
-//ESCAPE ROOM
-//NICHOLAS CHING
-//VERSION 12
+//Name of Game: Escape Room
+//Name of Programmer: Nicholas Ching
+//Version Number: 13
 
 //Importing Libraries
 import arc.*;
@@ -69,7 +69,7 @@ public class midtermproject{
 		//Main Scenes Loop
 		while(intgamedone < 1){
 			
-			//Initializing Adventure (Not a Scene - Scene 0)
+			//Initializing Adventure (Not a scene as there is no linked method - "Scene 0")
 			while(dblscene == 0){
 				con.println("What is your name?");
 				struser = con.readLine();
@@ -88,6 +88,7 @@ public class midtermproject{
 					con.sleep(250);
 					con.clear();
 				}
+				//Advances to Scene 1 after Initializing
 				dblscene = 1;
 			}
 			
@@ -100,11 +101,11 @@ public class midtermproject{
 				con.println("Press 's' to start and any other key to quit and head home.");
 				//Scene Input
 				chrstart = con.getChar();
-				//Condition - Goes Home 
+				//Condition - Goes Home (Scene 2)
 				if(chrstart != 's'){
 					dblscene = 2;
 				}
-				//Condition - Starts the Escape Room
+				//Condition - Starts the Escape Room (Scene 3)
 				else if(chrstart == 's'){
 					dblscene = 3;
 				}
@@ -132,7 +133,7 @@ public class midtermproject{
 				con.println("You will be challenged with puzzles, complete them correctly to go down the right path and win the game!");
 				con.println("Click anywhere to start your first challenge!");
 				intmouseclicked = 0;
-				//Condition - Must Complete to Advance
+				//Condition - Must Complete to Advance to Scene 4
 				while(intmouseclicked == 0){
 					intmouseclicked = con.currentMouseButton();
 				}
@@ -218,11 +219,11 @@ public class midtermproject{
 						}
 					}
 				}
-				//Condition (CR) - Advances to Palindrome Challenge
+				//Condition (CR) - Advances to Palindrome Challenge (Scene 7)
 				if(dblpuzzle1 == 5.4 && dblpuzzle2 == 4.2 && dblpuzzle3 == 3.3 && dblpuzzle4 == 2.5 && dblpuzzle5 == 1.1){
 					dblscene = 7;
 				}
-				//Condition (IR) - Advances to Guessing a Random Number
+				//Condition (IR) - Advances to Guessing a Random Number (Scene 5)
 				else{
 					dblscene = 5;
 				}
@@ -253,12 +254,12 @@ public class midtermproject{
 					}
 					inttries = inttries + 1;
 				}
-				//Condition (CR) - Advances to Two Door Scene (b)
+				//Condition (CR) - Advances to Two Door Scene (Scene 8b)
 				if(inttries <= 10){
 					con.println("Number guessed in "+inttries+" tries");
 					dblscene = 8.2;
 				}
-				//Condition (IR) - Game over (no time)
+				//Condition (IR) - Game over, no time (Scene 6)
 				else if(inttries > 10){
 					con.println("Number guessed in "+inttries+" tries, that is too many tries!");
 					dblscene = 6;
@@ -299,16 +300,16 @@ public class midtermproject{
 					
 					//Condition (CR) - Repeats Loop
 					if(strpalwordback.equals(strpalword)){
-						con.println("Correct, "+strpalword+" is a palindrome. "+intpalcount+" palindrome inputted.");
+						con.println("Correct, "+strpalword+" is a palindrome. "+intpalcount+" palindromes inputted.");
 					}
-					//Condition (IR) - Advances to Two Door Scene (b)
+					//Condition (IR) - Advances to Two Door Scene (Scene 8b)
 					else{
 						con.println("Incorrect, "+strpalword+" is not a palindrome.");
 						intpalcount = 999;
 						dblscene = 8.2;
 					}
 				}
-				//Condition (CR) - Advances to Two Door Scene (a)
+				//Condition (CR) - Advances to Two Door Scene (Scene 8a)
 				if(intpalcount == 6){
 					dblscene = 8.1;
 				}	
@@ -328,11 +329,11 @@ public class midtermproject{
 					intposx = con.currentMouseX();
 					intposy = con.currentMouseY();
 					//For now, assume full left side is the left door, and full right side is the right door
-					//Condition (CR) - Advances to Integer Number Quadratic
+					//Condition (CR) - Advances to Integer Number Quadratic (Scene 10a)
   					if(intposx < 720 && intmouseclicked > 0){
 						dblscene = 10.1;
 					}
-					//Condition (IR) - Advances to Double Number Quadratic
+					//Condition (IR) - Advances to Double Number Quadratic (Scene 11a)
 					else if(intposx > 720 && intmouseclicked > 0){
 						dblscene = 11.1;
 					}
@@ -353,11 +354,11 @@ public class midtermproject{
 					intposx = con.currentMouseX();
 					intposy = con.currentMouseY();
 					//For now, assume full left side is the left door, and full right side is the right door
-					//Condition (CR) - Advances to Double Number Quadratic
+					//Condition (CR) - Advances to Double Number Quadratic (Scene 11a)
   					if(intposx < 720 && intmouseclicked > 0){
 						dblscene = 11.1;
 					}
-					//Condition (IR) - Game Over (Wrong Door)
+					//Condition (IR) - Game Over, Wrong Door (Scene 9)
 					else if(intposx > 720 && intmouseclicked > 0){
 						dblscene = 9;
 					}
@@ -389,7 +390,7 @@ public class midtermproject{
 				//Scene Calculation
 				dbldiscriminant = (Math.pow(introotvalb, 2) - 4*introotvala*introotvalc);
 				
-				//Condition (CRs) - Advances to Solving the Quadratic
+				//Condition (CRs) - Advances to Solving the Quadratic (Scene 10b)
 				if(dbldiscriminant > 0){
 					introots = 2;
 					dblscene = 10.2;
@@ -398,7 +399,7 @@ public class midtermproject{
 					introots = 1;
 					dblscene = 10.2;
 				}
-				//Condition (IR) - Game Over (No Roots)
+				//Condition (IR) - Game Over, No Roots (Scene 12)
 				else if(dbldiscriminant < 0){
 					dblscene = 12;
 				}
@@ -423,11 +424,11 @@ public class midtermproject{
 					dblrootaansrnd = dblrootaansrnd/100;
 					dblrootbansrnd = Math.round(dblrootbans*100);
 					dblrootbansrnd = dblrootbansrnd/100;
-					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES (Scene 14)
 					if(dblroota == dblrootaansrnd && dblrootb == dblrootbansrnd){
 						dblscene = 14;
 					}
-					//Condition (IR) - Game Over, Wrong Roots
+					//Condition (IR) - Game Over, Wrong Roots (Scene 13)
 					else if(dblroota != dblrootaansrnd || dblrootb != dblrootbansrnd){
 						dblscene = 13;
 					}
@@ -437,11 +438,11 @@ public class midtermproject{
 					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
 					dblrootaansrnd = Math.round(dblrootaans*100);
 					dblrootaansrnd = dblrootaansrnd/100;
-					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES (Scene 14)
 					if(dblroota == dblrootaansrnd){
 						dblscene = 14;
 					}
-					//Condition (IR) - Game Over, Wrong Roots
+					//Condition (IR) - Game Over, Wrong Roots (Scene 13)
 					else if(dblroota != dblrootaansrnd){
 						dblscene = 13;
 					}
@@ -462,7 +463,7 @@ public class midtermproject{
 				//Scene Calculation
 				dbldiscriminant = (Math.pow(dblrootvalb, 2) - 4*dblrootvala*dblrootvalc);
 				
-				//Condition (CRs) - Advances to Solving the Quadratic
+				//Condition (CRs) - Advances to Solving the Quadratic (Scene 11b)
 				if(dbldiscriminant > 0){
 					introots = 2;
 					dblscene = 11.2;
@@ -471,7 +472,7 @@ public class midtermproject{
 					introots = 1;
 					dblscene = 11.2;
 				}
-				//Condition (IR) - Game Over (No Roots)
+				//Condition (IR) - Game Over, No Roots (Scene 12)
 				else if(dbldiscriminant < 0){
 					dblscene = 12;
 				}
@@ -496,11 +497,11 @@ public class midtermproject{
 					dblrootaansrnd = dblrootaansrnd/100;
 					dblrootbansrnd = Math.round(dblrootbans*100);
 					dblrootbansrnd = dblrootbansrnd/100;
-					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES (Scene 14)
 					if(dblroota == dblrootaansrnd && dblrootb == dblrootbansrnd){
 						dblscene = 14;
 					}
-					//Condition (IR) - Game Over, Wrong Roots
+					//Condition (IR) - Game Over, Wrong Roots (Scene 13)
 					else if(dblroota != dblrootaansrnd || dblrootb != dblrootbansrnd){
 						dblscene = 13;
 					}
@@ -510,11 +511,11 @@ public class midtermproject{
 					dblrootaans = ((-dblrootvalb + Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
 					dblrootaansrnd = Math.round(dblrootaans*100);
 					dblrootaansrnd = dblrootaansrnd/100;
-					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
+					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES (Scene 14)
 					if(dblroota == dblrootaansrnd){
 						dblscene = 14;
 					}
-					//Condition (IR) - Game Over, Wrong Roots
+					//Condition (IR) - Game Over, Wrong Roots (Scene 13)
 					else if(dblroota != dblrootaansrnd){
 						dblscene = 13;
 					}
@@ -556,12 +557,6 @@ public class midtermproject{
 				intgamedone = 1;
 			}
 			
-			//TESTING Section
-			while(dblscene == 999){	
-				int inttest;
-				inttest = con.currentMouseButton();
-				con.println(inttest);
-			}
 		}
 	}
 	
