@@ -1,6 +1,6 @@
 //ESCAPE ROOM
 //NICHOLAS CHING
-//VERSION 11
+//VERSION 12
 
 //Importing Libraries
 import arc.*;
@@ -62,6 +62,9 @@ public class midtermproject{
 		//dblrootbans used
 		//dblrootaansrnd used
 		//dblrootbansrnd used
+		//N/A						//Scene 12
+		//N/A						//Scene 13
+		//N/A						//Scene 14
 		
 		//Main Scenes Loop
 		while(intgamedone < 1){
@@ -296,11 +299,11 @@ public class midtermproject{
 					
 					//Condition (CR) - Repeats Loop
 					if(strpalwordback.equals(strpalword)){
-						con.println("Correct, "+strpalword+" is a pallindrome. "+intpalcount+" pallindrome inputted.");
+						con.println("Correct, "+strpalword+" is a palindrome. "+intpalcount+" palindrome inputted.");
 					}
 					//Condition (IR) - Advances to Two Door Scene (b)
 					else{
-						con.println("Incorrect, "+strpalword+" is not a pallindrome.");
+						con.println("Incorrect, "+strpalword+" is not a palindrome.");
 						intpalcount = 999;
 						dblscene = 8.2;
 					}
@@ -375,8 +378,8 @@ public class midtermproject{
 			
 			//Scene 10(a): Integer Quadratic Challenge (Input)
 			while(dblscene == 10.1){
-				scene10(con);
-				con.println("TEMP - Scene 10a");
+				con.clear();
+				scene10a(con, dblscene);
 				//Scene Text
 				con.println("Enter 3 Integer Numbers to proceed!");
 				//Scene Input
@@ -397,53 +400,59 @@ public class midtermproject{
 				}
 				//Condition (IR) - Game Over (No Roots)
 				else if(dbldiscriminant < 0){
-					dblscene = 12.1;
+					dblscene = 12;
 				}
+				scene10a(con, dblscene);
 			}
 			
 			//Scene 10(b): Integer Quadratic Challenge (Response)
 			while(dblscene == 10.2){
-				scene10(con);
-				con.println("TEMP - Scene 10b");
+				con.clear();
+				scene10b(con, dblscene);
 				//Scene Text
 				con.println("You entered 3 Integer numbers, they will now be your a, b, and c values in a quadratic equation.");
 				con.println("Now, solve for the roots of the equation to unlock the final door (round to 2 decimal places)");
+				con.println("For your first input, add the discriminant, for the second, subtract (if applicable)");
 				//Condition to allow inputs based on number of roots
 				if(introots == 2){
 					dblroota = con.readDouble();
 					dblrootb = con.readDouble();
 					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
 					dblrootbans = ((-introotvalb - Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
-					dblrootaansrnd = Math.round(dblrootaans*100)/100;
-					dblrootbansrnd = Math.round(dblrootbans*100)/100;
+					dblrootaansrnd = Math.round(dblrootaans*100);
+					dblrootaansrnd = dblrootaansrnd/100;
+					dblrootbansrnd = Math.round(dblrootbans*100);
+					dblrootbansrnd = dblrootbansrnd/100;
 					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
-					if(dblroota == dblrootaans && dblrootb == dblrootbans){
-						dblscene = 14.1;
+					if(dblroota == dblrootaansrnd && dblrootb == dblrootbansrnd){
+						dblscene = 14;
 					}
 					//Condition (IR) - Game Over, Wrong Roots
-					else if(dblroota != dblrootaans || dblrootb != dblrootbans){
-						dblscene = 13.1;
+					else if(dblroota != dblrootaansrnd || dblrootb != dblrootbansrnd){
+						dblscene = 13;
 					}
 				}
 				else if(introots == 1){
 					dblroota = con.readDouble();
 					dblrootaans = ((-introotvalb + Math.sqrt(Math.pow(introotvalb, 2) - 4 * introotvala * introotvalc)) / 2 * introotvala);
-					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					dblrootaansrnd = Math.round(dblrootaans*100);
+					dblrootaansrnd = dblrootaansrnd/100;
 					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
-					if(dblroota == dblrootaans){
-						dblscene = 14.1;
+					if(dblroota == dblrootaansrnd){
+						dblscene = 14;
 					}
 					//Condition (IR) - Game Over, Wrong Roots
-					else if(dblroota != dblrootaans){
-						dblscene = 13.1;
+					else if(dblroota != dblrootaansrnd){
+						dblscene = 13;
 					}
 				}
+				scene10b(con, dblscene);
 			}
 			
 			//Scene 11(a): Double Quadratic Challenge (Input)
 			while(dblscene == 11.1){
-				scene11(con);
-				con.println("TEMP - Scene 11a");
+				con.clear();
+				scene11a(con, dblscene);
 				//Scene Text
 				con.println("Enter 3 Double Numbers to proceed!");
 				//Scene Input
@@ -464,54 +473,61 @@ public class midtermproject{
 				}
 				//Condition (IR) - Game Over (No Roots)
 				else if(dbldiscriminant < 0){
-					dblscene = 12.2;
+					dblscene = 12;
 				}
+				scene11a(con, dblscene);
 			}
 			
 			//Scene 11(b): Double Quadratic Challenge (Response)
 			while(dblscene == 11.2){
-				scene11(con);
-				con.println("TEMP - Scene 11b");
+				con.clear();
+				scene11b(con, dblscene);
 				//Scene Text
 				con.println("You entered 3 Double numbers, they will now be your a, b, and c values in a quadratic equation.");
 				con.println("Now, solve for the roots of the equation to unlock the final door (round to 2 decimal places)");
+				con.println("For your first input, add the discriminant, for the second, subtract (if applicable)");
 				//Condition to allow inputs based on number of roots
 				if(introots == 2){
 					dblroota = con.readDouble();
 					dblrootb = con.readDouble();
 					dblrootaans = ((-dblrootvalb + Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
 					dblrootbans = ((-dblrootvalb - Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
-					dblrootaansrnd = Math.round(dblrootaans*100)/100;
-					dblrootbansrnd = Math.round(dblrootbans*100)/100;
+					dblrootaansrnd = Math.round(dblrootaans*100);
+					dblrootaansrnd = dblrootaansrnd/100;
+					dblrootbansrnd = Math.round(dblrootbans*100);
+					dblrootbansrnd = dblrootbansrnd/100;
 					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
-					if(dblroota == dblrootaans && dblrootb == dblrootbans){
-						dblscene = 14.2;
+					if(dblroota == dblrootaansrnd && dblrootb == dblrootbansrnd){
+						dblscene = 14;
 					}
 					//Condition (IR) - Game Over, Wrong Roots
-					else if(dblroota != dblrootaans || dblrootb != dblrootbans){
-						dblscene = 13.2;
+					else if(dblroota != dblrootaansrnd || dblrootb != dblrootbansrnd){
+						dblscene = 13;
 					}
 				}
 				else if(introots == 1){
 					dblroota = con.readDouble();
 					dblrootaans = ((-dblrootvalb + Math.sqrt(Math.pow(dblrootvalb, 2) - 4 * dblrootvala * dblrootvalc)) / 2 * dblrootvala);
-					dblrootaansrnd = Math.round(dblrootaans*100)/100;
+					dblrootaansrnd = Math.round(dblrootaans*100);
+					dblrootaansrnd = dblrootaansrnd/100;
 					//Condition (CR) - Advances and SUCCESSFULLY ESCAPES
-					if(dblroota == dblrootaans){
-						dblscene = 14.2;
+					if(dblroota == dblrootaansrnd){
+						dblscene = 14;
 					}
 					//Condition (IR) - Game Over, Wrong Roots
-					else if(dblroota != dblrootaans){
-						dblscene = 13.2;
+					else if(dblroota != dblrootaansrnd){
+						dblscene = 13;
 					}
 				}
+				scene11b(con, dblscene);
 			}
 			
 			//Scene 12: END OF GAME - No Quadratic
 			while(dblscene == 12){
+				con.clear();
 				scene12(con);
-				con.println("TEMP - Scene 12");
-				con.println("Game over, you needed to solve for the root of those 3 numbers, unfortunately you cannot get the square root of a negative number. Try again!");
+				con.println("Game over, you needed to solve for the root of those 3 numbers.");
+				con.println("Unfortunately you cannot get the square root of a negative number, you ran out of time. Try again!");
 				
 				//End Game
 				dblscene = -1;
@@ -520,8 +536,8 @@ public class midtermproject{
 			
 			//Scene 13: END OF GAME - Wrong Values
 			while(dblscene == 13){
+				con.clear();
 				scene13(con);
-				con.println("TEMP - Scene 13");
 				con.println("Game over, you entered the wrong roots and lost. Try again!");
 				
 				//End Game
@@ -531,9 +547,9 @@ public class midtermproject{
 			
 			//Scene 14: END OF GAME - Win!
 			while(dblscene == 14){
+				con.clear();
 				scene14(con);
-				con.println("TEMP - Scene 14");
-				con.println("CONGRATULATIONS!!! YOU HAVE SUCCESSFULLY ESCAPED!");
+				con.println("CONGRATULATIONS "+struser+"!!! YOU HAVE SUCCESSFULLY ESCAPED!");
 				
 				//End Game
 				dblscene = -1;
@@ -775,7 +791,7 @@ public class midtermproject{
 	//Scene 6 Graphics (TEXT & DISTINCT PICTURE + ANIMATED)
 	public static void scene6(Console con){
 		//Scene Images
-		BufferedImage imgScene6BG = con.loadImage("Scene6BG.png");
+		BufferedImage imgScene6BG = con.loadImage("Scene6and12BG.png");
 		
 		//Scene Variables
 		int intcount;
@@ -958,29 +974,214 @@ public class midtermproject{
 		}
 	}
 	
-	//Scene 10 Graphics
-	public static void scene10(Console con){
+	//Scene 10 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION)
+	public static void scene10a(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene10aBG = con.loadImage("Scene10-11aBG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
 		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene10aBG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 12){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene10aBG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+	}
+	public static void scene10b(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene10bBG = con.loadImage("Scene10-11band13BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
+		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene10bBG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 14){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene10bBG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 13){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene10bBG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
 	}
 	
-	//Scene 11 Graphics
-	public static void scene11(Console con){
+	//Scene 11 Graphics (TEXT & DISTINCT PICTURE + DUPLICATED ANIMATION)
+	public static void scene11a(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene11aBG = con.loadImage("Scene10-11aBG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
 		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene11aBG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 12){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene11aBG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+	}
+	public static void scene11b(Console con, double dblscene){
+		//Scene Images
+		BufferedImage imgScene11bBG = con.loadImage("Scene10-11band13BG.png");
+		BufferedImage imgCorrect = con.loadImage("Correct.png");
+		BufferedImage imgWrong = con.loadImage("Wrong.png");
+		
+		//Scene Variables
+		int intcount;
+		int intcororwroposx = 1280;
+		
+		//Main Scene Drawing (IN)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene11bBG, 0, 0);
+		con.repaint();
+		
+		//Main Scene Drawing (OUT)
+		if(dblscene == 14){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene11bBG, 0, 0);
+				con.drawImage(imgCorrect, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
+		if(dblscene == 13){
+			for(intcount = 0; intcount <= 173; intcount++){
+				intcororwroposx = intcororwroposx - 5;
+				con.setDrawColor(Color.BLACK);
+				con.fillRect(0, 0, 1280, 720);
+				con.drawImage(imgScene11bBG, 0, 0);
+				con.drawImage(imgWrong, intcororwroposx, 135);
+				con.repaint();
+				con.sleep(17);
+			}
+			con.sleep(5000);
+		}
 	}
 	
-	//Scene 12 Graphics
+	//Scene 12 Graphics (TEXT & PICTURE + DUPLICATED ANIMATION)
 	public static void scene12(Console con){
+		//Scene Images
+		BufferedImage imgScene12BG = con.loadImage("Scene6and12BG.png");
 		
+		//Scene Variables
+		int intcount;
+		int intsceneadjx = 0;
+		int intscenevelox = 5;
+		
+		//Main Scene Drawing (IN AND STAY)
+		for(intcount = 0; intcount < 250; intcount++){
+			if(intsceneadjx == 0){
+				intscenevelox = -5;
+			}
+			else if(intsceneadjx == -50){
+				intscenevelox = 5;
+			}
+			intsceneadjx = intsceneadjx + intscenevelox;
+			con.setDrawColor(Color.BLACK);
+			con.fillRect(0, 0, 1280, 720);
+			con.drawImage(imgScene12BG, -25 + intsceneadjx, 0);
+			con.repaint();
+			con.sleep(17);
+		}
 	}
 	
-	//Scene 13 Graphics
+	//Scene 13 Graphics (TEXT & DISTINCT PICTURE + ANIMATION)
 	public static void scene13(Console con){
+		//Scene Images
+		BufferedImage imgScene13BG = con.loadImage("Scene10-11band13BG.png");
+		BufferedImage imgLock = con.loadImage("Lock.png");
 		
+		//Scene Variables
+		int intcount;
+		int intsceneadjy = 560;
+		
+		//Main Scene Drawing (IN AND STAY)
+		for(intcount = 0; intcount < 112; intcount++){
+			intsceneadjy = intsceneadjy - 5;
+			con.setDrawColor(Color.BLACK);
+			con.fillRect(0, 0, 1280, 720);
+			con.drawImage(imgScene13BG, 0, 0);
+			con.drawImage(imgLock, 440, 160 + intsceneadjy);
+			con.repaint();
+			con.sleep(17);
+		}
 	}
 	
-	//Scene 14 Graphics
+	//Scene 14 Graphics (TEXT & DISTINCT PICTURE)
 	public static void scene14(Console con){
+		//Scene Images
+		BufferedImage imgScene14BG = con.loadImage("Scene14BG.png");
+		BufferedImage imgLock = con.loadImage("Lock.png");
 		
+		//Main Scene Drawing (IN AND STAY)
+		con.setDrawColor(Color.BLACK);
+		con.fillRect(0, 0, 1280, 720);
+		con.drawImage(imgScene14BG, 0, 0);
+		con.repaint();
 	}
 	
 }
